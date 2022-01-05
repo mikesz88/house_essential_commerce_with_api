@@ -1,0 +1,21 @@
+.navbarContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: beige;
+}
+
+.navbarContainer ul {
+    display: flex;
+}
+
+.navbarContainer ul li {
+    padding: 1rem;
+}
+
+.navbarContainer ul li.fontSize {
+    text-transform: none;
+    font-size: .75rem;
+}
