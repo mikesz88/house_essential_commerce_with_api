@@ -10,12 +10,12 @@
     {
       "src": "MSLogo.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "102x79"
     },
     {
       "src": "MSLogo.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "102x79"
     }
   ],
   "start_url": ".",

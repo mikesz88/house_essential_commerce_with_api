@@ -1,8 +1,9 @@
-1. Create StoreFront (API Data)
-    - DO not forget about the caching of images locally.
-
+1. SearchBar and Category component
+2. Create Log In component
+3. Create Sign In Component
 
 Do not forget to do:
+    - DO not forget about the caching of images locally. (I think I did this but I am waiting for Jasons answer)
 1. Create a component that activates the cart button from the navbar as a side transition
     - yes do it as practice learning how to do it
     - Include a button on it if they want to check out if they at least have an item in their account. 

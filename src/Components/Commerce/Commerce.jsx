@@ -1,4 +1,5 @@
 import React from "react";
+import Home from "../Home/home";
 import Navbar from '../Navbar/Navbar';
 
 class Commerce extends React.Component {
@@ -10,8 +11,8 @@ class Commerce extends React.Component {
                         <Navbar />
                     </div>
                 </div>
-                <div>
-                    Test
+                <div className="container">
+                    <Home />
                 </div>
             </>
         )
