@@ -10,7 +10,18 @@ class Home extends React.Component {
         data: [],
         loading: false,
         error: false,
+        userSearch: ''
     };
+
+    updateCart = (state, func) => this.props.updateCart(state, func);
+    deleteCartItem = name => this.props.deleteCartItem(name);
+
+
+    updateUserSearch = state => {
+        this.setState({
+          userSearch: state,
+        })
+      }
 
     async componentDidMount() {
         this.setState({ loading: true});
@@ -25,7 +36,6 @@ class Home extends React.Component {
                     this.setState({ loading: false })
                 }
             }, error => {
-                console.log(error);
                 this.setState(({
                     loading: false, 
                     error: true
@@ -35,28 +45,36 @@ class Home extends React.Component {
         
         
     render() {
-        this.state.data.map(product => localStorage.setItem(product.name, product.img));
+        const { data, loading, error, userSearch } = this.state;
+        data.map(product => localStorage.setItem(product.name, product.img));
         return (
-            <div>
-                <SearchBarAndCategory />
+            <>
+                <SearchBarAndCategory 
+                    updateUserSearch={this.updateUserSearch}
+                />
                     {this.state.data && 
-                        <div style={{display: 'flex', flexWrap: 'wrap'}}>
-                            {this.state.data.map((product, index) => (
+                        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+                            {!loading ? this.state.data
+                            .sort((a, b) => {
+                                if(a.name < b.name) { return -1; }
+                                if(a.name > b.name) { return 1; }
+                                return 0;
+                            })
+                            .filter(product => product.name.includes(userSearch) || product.category.includes(userSearch))
+                            .map((product, index) => (
                                 <ProductItems
                                     key={index} 
-                                    name={product.name}
-                                    price={product.price}
-                                    desc={product.desc}
+                                    product={product}
+                                    updateCart={this.updateCart}
+                                    cart={this.props.cart}
+                                    deleteCartItem={this.props.deleteCartItem}
                                 />
-                            ))}
+                            )): <div className={style.loadingScreen}>Loading...</div>
+                        }
                         </div>
                     }
-                {/* <div style={{display: 'flex'}}>
-                <ProductItems />
-                <ProductItems />
-                <ProductItems />
-                </div> */}
-            </div>
+                {error && <h3 style={{color: 'red'}} className={style.loadingScreen}>Error loading data</h3>}
+            </>
         )
     }
 }

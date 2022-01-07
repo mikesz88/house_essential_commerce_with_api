@@ -1,0 +1,9 @@
+.loadingScreen {
+    height: 70vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 2rem;
+}

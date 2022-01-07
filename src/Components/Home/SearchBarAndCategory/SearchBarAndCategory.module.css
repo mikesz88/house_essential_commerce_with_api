@@ -1,0 +1,28 @@
+.searchContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}
+
+.searchContainer .inputStyle {
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-size: 1.5rem;
+}
+
+.categoryContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.categoryContainer button {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.categoryContainer .activeColor {
+    background-color: blue;
+}

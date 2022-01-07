@@ -1,6 +1,8 @@
-1. SearchBar and Category component
-2. Create Log In component
-3. Create Sign In Component
+1. Navbar Cart Item needs to lead to the Cart display when clicked
+2. When clicking 'add to cart' create a footer fixed to the bottom of the screen giving the buttons of:
+    Guest Check Out (send to cart) || Login (send to login/then cart) || Sign Up (send to sign up/ then cart).
+3. Create a Login
+4. Create a Sign up
 
 Do not forget to do:
     - DO not forget about the caching of images locally. (I think I did this but I am waiting for Jasons answer)
