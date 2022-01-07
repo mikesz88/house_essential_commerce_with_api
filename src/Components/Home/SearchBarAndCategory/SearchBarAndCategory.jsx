@@ -10,7 +10,7 @@ class SearchBarAndCategory extends React.Component {
     }
 
     updateUserSearch = state => this.props.updateUserSearch(state); 
-
+    
     updateChange = e => {
         e.preventDefault();
         this.updateUserSearch(e.target.value.toLowerCase())

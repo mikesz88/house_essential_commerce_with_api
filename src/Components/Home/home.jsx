@@ -23,6 +23,11 @@ class Home extends React.Component {
         })
       }
 
+      searchKeywords = (keywordString, searchItem) => {
+        const keywordArray = keywordString.split(" ");
+        return keywordArray.some(word => word.includes(searchItem.toLowerCase())) ? true : false;
+    }
+
     async componentDidMount() {
         this.setState({ loading: true});
         products.productListings()
@@ -43,7 +48,6 @@ class Home extends React.Component {
             })
         }
         
-        
     render() {
         const { data, loading, error, userSearch } = this.state;
         data.map(product => localStorage.setItem(product.name, product.img));
@@ -60,7 +64,9 @@ class Home extends React.Component {
                                 if(a.name > b.name) { return 1; }
                                 return 0;
                             })
-                            .filter(product => product.name.includes(userSearch) || product.category.includes(userSearch))
+                            .filter(product => 
+                                this.searchKeywords(product.name.toLowerCase(), userSearch) 
+                                || product.category.includes(userSearch))
                             .map((product, index) => (
                                 <ProductItems
                                     key={index} 
