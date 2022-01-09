@@ -5,17 +5,18 @@ const displayScreens = {
     cart: false, 
     shipping: false,
     payment: false,
-    confirmed: false
+    confirmed: false,
+    footer: false,
 }
 
-const savedUsers = [
-    {
-        firstName: 'Jason',
-        lastName: 'Brewer',
+const savedUsers = {
+    jason: {
+        firstName: 'jason',
+        lastName: 'brewer',
         password: 'Bestcoder0!',
         email: 'jason@devslopes.com'
     }
-]
+}
     
 export const commerceVariables = {
     displayScreens,

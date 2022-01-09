@@ -57,7 +57,7 @@ class Home extends React.Component {
                     updateUserSearch={this.updateUserSearch}
                 />
                     {this.state.data && 
-                        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}}>
+                        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', paddingBottom: '5rem'}}>
                             {!loading ? this.state.data
                             .sort((a, b) => {
                                 if(a.name < b.name) { return -1; }
@@ -74,6 +74,7 @@ class Home extends React.Component {
                                     updateCart={this.updateCart}
                                     cart={this.props.cart}
                                     deleteCartItem={this.props.deleteCartItem}
+                                    updateFooterDisplay={this.props.updateFooterDisplay}
                                 />
                             )): <div className={style.loadingScreen}>Loading...</div>
                         }

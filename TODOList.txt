@@ -1,11 +1,18 @@
-1. Navbar Cart Item needs to lead to the Cart display when clicked
-2. When clicking 'add to cart' create a footer fixed to the bottom of the screen giving the buttons of:
-    Guest Check Out (send to cart) || Login (send to login/then cart) || Sign Up (send to sign up/ then cart).
-3. Create a Login
-4. Create a Sign up
+1. Finish Login
+2. Create a Sign up
+3. Create Cart
+4. Create Shipping
+5. Create Payment
+6. Confirm Payment
 
 Do not forget to do:
-    - DO not forget about the caching of images locally. (I think I did this but I am waiting for Jasons answer)
+    - Do not forget about the caching of images locally. (I think I did this but I am waiting for Jasons answer)
 1. Create a component that activates the cart button from the navbar as a side transition
     - yes do it as practice learning how to do it
     - Include a button on it if they want to check out if they at least have an item in their account. 
+2. The quantity check for the cart must be counted for. 
+3. Transition for footer
+4. disable cart buttons when cart = 0, login screen, and sign up screen.
+5. Each item should have a details page that has an Image, Title, Description, and price. 
+A user can add to the cart as well as change the quantity.
+    - I might leave mine how it is and add conditionals to add quantities

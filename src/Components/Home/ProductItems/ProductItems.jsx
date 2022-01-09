@@ -9,13 +9,15 @@ class ProductItems extends React.Component {
         }
     }
 
-    updateCart = (state, func) => this.props.updateCart(state, func);
+    updateCart = (state, func) => {
+        this.props.updateCart(state, func);
+        this.props.updateFooterDisplay(true)
+    };
+
     deleteCartItem = name => this.props.deleteCartItem(name);
 
 
-    deleteItem = name => {
-        this.deleteCartItem(name);
-    }
+
 
     filterDesc = string => {
         const filteredString = string.slice(3).slice(0,-4);
@@ -23,7 +25,7 @@ class ProductItems extends React.Component {
     }
 
     render() {
-        const { product , updateCart, deleteCartItem, cart } = this.props;
+        const { product, cart } = this.props;
         const { name, price, desc } = product;
         const { isShown } = this.state;
         const descFiltered = this.filterDesc(desc);
@@ -50,8 +52,8 @@ class ProductItems extends React.Component {
                         </div>
                         <div>{descFiltered}</div>
                             {!Object.keys(cart).includes(name)
-                            ? <button className="btn" onClick={() => updateCart({[name]: product})}>Add to Cart</button>
-                            : <button className="btn" onClick={() => deleteCartItem(name)}>Remove from Cart</button>}
+                            ? <button className="btn" onClick={() => this.updateCart({[name]: product})}>Add to Cart</button>
+                            : <button className="btn" onClick={() => this.deleteCartItem(name)}>Remove from Cart</button>}
                         
                     </div>
                 )}

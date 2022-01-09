@@ -1,0 +1,74 @@
+.flexContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 0 0 20px 10px gray;
+}
+
+.flexContainer .loginHeader {
+    position: relative;
+    text-align: center;
+    width: 300px;
+    margin-top: 1rem;
+    padding-bottom: 2rem;
+}
+
+.flexContainer .inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+    padding-bottom: 1.5rem;
+}
+
+.inputContainer input {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 1rem;
+    width: 300px;
+}
+
+.inputContainer input:focus {
+    outline: none;
+}
+
+.inputContainer .passwordWithEye .deleteBorder {
+    border: none;
+    flex: 1;
+    background-color: transparent;
+}
+
+.inputContainer .passwordWithEye {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    border: none;
+    border-bottom: 1px solid black;}
+
+.eyeButton {
+    background-color: transparent;
+    border: none;
+}
+
+.finePrint {
+    max-width: 300px;
+    font-size: 0.75rem;
+}
+
+.error,
+.generalError {
+    color: red;
+    font-size: 0.75rem;
+    position: absolute;
+    bottom: 0;
+}
+
+.generalError {
+    position: bottom;
+    max-width: 300px;
+    text-align: center;
+}
