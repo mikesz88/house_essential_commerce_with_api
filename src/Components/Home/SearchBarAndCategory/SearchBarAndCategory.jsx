@@ -53,7 +53,7 @@ class SearchBarAndCategory extends React.Component {
                             id={category} 
                             value={category} 
                             onClick={this.updateButton} 
-                            className={`btn ${this.state.activeButton === category ? style.activeColor : null}`}>
+                            className={`round-pill ${style.catButton} ${this.state.activeButton === category ? style.activeColor : null}`}>
                                 {category}
                         </button>
                     ))}

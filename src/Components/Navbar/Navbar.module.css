@@ -1,6 +1,7 @@
 .navbarContainer {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     align-items: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -9,13 +10,27 @@
 
 .navbarContainer ul {
     display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
 }
 
 .navbarContainer ul li {
     padding: 1rem;
 }
 
-.navbarContainer ul li.fontSize {
+.navbarContainer ul li button {
+    background-color: transparent;
+    color: beige;
+    border: none;
+    padding: 1rem;
+    min-width: none;
+}
+
+.navbarContainer ul li button:disabled {
+    text-decoration: line-through;
+}
+
+.navbarContainer ul li button.fontSize {
     text-transform: none;
     font-size: .75rem;
 }

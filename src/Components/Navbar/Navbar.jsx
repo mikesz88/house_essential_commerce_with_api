@@ -3,24 +3,24 @@ import style from './Navbar.module.css';
 
 class Navbar extends React.Component {
     
-    toCartDisplay = e => {
-        e.preventDefault();
-        this.props.updateHomeDisplay(false)
-        this.props.updateCartDisplay(true)
+    updateDisplay = display => {
+        const displayList = Object.keys(this.props.displayList);
+        for (const currentDisplay of displayList) {
+            this.props.updateDisplay('commerce', 'displayScreens', {[currentDisplay]: false});
+        }
+        this.props.updateDisplay('commerce', 'displayScreens', {[display]: true})
     }
 
     render() {
-        const { cart } = this.props;
+        const { cart, currentUser } = this.props;
         const cartCount = Object.keys(cart).length !== 0 ? Object.keys(cart).length : 0; 
         return (
             <div className={style.navbarContainer}>
-                <div className="btn round-pill">House Essentials</div>
-                <ul className={`ul-defaults-none`}> {/* These should be buttons with click events */}
-                    <li className={`btn round-pill ${style.fontSize}`}>Login</li>
-                    <li className={`btn round-pill ${style.fontSize}`}>Create an Account</li>
-                    <li className={`btn round-pill ${style.fontSize}`} onClick={this.toCartDisplay}>
-                        <i className="fas fa-shopping-cart"></i>- {cartCount}
-                    </li> {/* This must include a state variable to show the number of items in the cart */}
+                <div className="btn round-pill" onClick={() => this.updateDisplay('home')}>House Essentials</div>
+                <ul className={`ul-defaults-none`}>
+                    <li><button disabled={currentUser} className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('login')}>Login</button></li>
+                    <li><button disabled={currentUser} className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('signUp')}>Create an Account</button></li>
+                    <li><button disabled={cartCount === 0 || !currentUser} className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('cart')}><i className="fas fa-shopping-cart"></i>- {cartCount}</button></li>
                 </ul>
             </div>
         )

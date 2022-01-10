@@ -21,33 +21,83 @@ class Login extends React.Component {
         }
     }
 
-    // generalError
+    generalError = () => {
+        const errorObject = this.state.error;
+        const errors = Object.keys(errorObject);
+        this.setState({ generalError: false })
 
-    // checkError function
+        if (!errors.length) { this.setState({ generalError: true })};
+
+        if (errors.length) {
+            errors.forEach(errorKey => {
+                if (errorObject[errorKey] !== undefined) { this.setState({ generalError: true })};
+            });
+        };
+    }
+
+    checkErrorBeforeSave = () => {
+        const { newUser, error } = this.state;
+        let errorValue = {};
+        let isError = false;
+        Object.keys(newUser).forEach(val => {
+            let checkError = val;
+            if (!newUser[checkError].length || error[checkError]) {
+              error[checkError] 
+              ? errorValue = { ...errorValue, [checkError]: error[checkError]}
+              : errorValue = { ...errorValue, [checkError]: 'Required'};
+              isError = true;
+            }
+        })
+        this.setState({ error: errorValue }, this.generalError);
+        return isError;
+    }
 
     loginSuccessful = () => {
         this.props.updateLoginDisplay(false);
-        this.props.updateCartDisplay(true);
+        const { cart } = this.props
+        const cartCount = Object.keys(cart).length !== 0 ? Object.keys(cart).length : 0; 
+        if (cartCount) {
+            this.props.updateCartDisplay(true);
+        } else {
+            this.props.updateHomeDisplay(true)
+        }
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        //check error function called
-        // check for errorcheck
-        // if statements
-        // call login successful
-    }
+        const errorCheck = this.checkErrorBeforeSave();
+        const { newUser } = this.state;
+        if (!errorCheck) {
+            this.props.updateUserList({[newUser.firstName]: newUser})
+            this.props.updateCurrentUser(newUser)
+            this.setState({
+                newUser: NEW_USER,
+            }, () => {
+                this.setState({
+                    generalError: false
+                })
+            });
+            this.loginSuccessful();
+        }
+      }
 
     handleInputData = ({target: {name, value}}) => {
-        this.setState(prevState => ({
-            newUser: {
-                ...prevState.newUser,
-                [name]: value
-            }
-        }))
+        if (name === 'password' || name === 'confirmPassword') {
+            this.setState(prevState => ({
+                newUser: {
+                    ...prevState.newUser,
+                    [name]: value
+                }
+            }))
+        } else {
+            this.setState(prevState => ({
+                newUser: {
+                    ...prevState.newUser,
+                    [name]: value.toLowerCase()
+                }
+            }))
+        } 
     }
-
-    // back to store button
 
     eyeFlip = () => { 
         if (!this.state.eye) {
@@ -64,13 +114,13 @@ class Login extends React.Component {
     }
 
     firstNameCheck = value => {
-        const letterRegex = /^[A-Za-z]+((\s)?((\\'|\\-|\.)?([A-Za-z])+))*$/gi;
+        const letterRegex = /^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$/gi;
         const error = letterRegex.test(value);
         return !error ? 'Please enter a valid First Name' : undefined;
     }
 
     lastNameCheck = value => {
-        const letterRegex = /^[A-Za-z]+((\s)?((\\'|\\-|\.)?([A-Za-z])+))*$/gi;
+        const letterRegex = /^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$/gi;
         const error = letterRegex.test(value);
         return !error ? 'Please enter a valid Last Name' : undefined;
     }
@@ -93,7 +143,7 @@ class Login extends React.Component {
     }
     
     emailCheck = value => {
-        const emailRegex = /^([A-Za-z0-9_\-\\.])+\\@([A-Za-z0-9_\-\\.])+\.([A-Za-z]{2,4})$/; 
+        const emailRegex = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; 
         const error = emailRegex.test(value);
         return !error ? 'This is not a proper email. Try again!' : this.emailAlreadyTaken(value);
     }
@@ -216,7 +266,7 @@ class Login extends React.Component {
                     />
                     {error.confirmPassword && <div className={style.error}>{error.confirmPassword}</div>}
                 </div>
-                <button className="btn round-pill">Submit</button>
+                <button className={`btn round-pill ${style.submitBtn}`} type="submit">Submit</button>
             </form>
         )
     }

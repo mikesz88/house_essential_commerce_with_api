@@ -71,6 +71,7 @@ class Home extends React.Component {
                                 <ProductItems
                                     key={index} 
                                     product={product}
+                                    img={localStorage.getItem(product.name)}
                                     updateCart={this.updateCart}
                                     cart={this.props.cart}
                                     deleteCartItem={this.props.deleteCartItem}

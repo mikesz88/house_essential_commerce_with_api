@@ -16,16 +16,13 @@ class ProductItems extends React.Component {
 
     deleteCartItem = name => this.props.deleteCartItem(name);
 
-
-
-
     filterDesc = string => {
         const filteredString = string.slice(3).slice(0,-4);
         return filteredString;
     }
 
     render() {
-        const { product, cart } = this.props;
+        const { product, cart, img } = this.props;
         const { name, price, desc } = product;
         const { isShown } = this.state;
         const descFiltered = this.filterDesc(desc);
@@ -36,7 +33,7 @@ class ProductItems extends React.Component {
             onMouseLeave={() => this.setState({ isShown: false })}
             >
                 <div className={style.imgContainer}>
-                    <img src={localStorage.getItem(name)} alt={`${name}`} />
+                    <img src={img} alt={`${name}`} />
                 </div>
                 <div className={style.titleAndPrice}>
                     <span>{name}</span>

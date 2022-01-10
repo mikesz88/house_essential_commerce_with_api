@@ -6,6 +6,7 @@
 }
 
 .searchContainer .inputStyle {
+    max-width: 300px;
     padding: 1rem;
     border-radius: 8px;
     border: 1px solid black;
@@ -14,15 +15,27 @@
 
 .categoryContainer {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
 .categoryContainer button {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
+    margin: 0.5rem;
 }
 
 .categoryContainer .activeColor {
-    background-color: blue;
+    background-color: black;
+    color: beige;
+}
+
+.categoryContainer .catButton {
+    width: 125px;
+    padding: 1rem;
+    border: none;
+}
+
+.categoryContainer .catButton:hover {
+    background-color: darkgray;
+    color: black;
 }

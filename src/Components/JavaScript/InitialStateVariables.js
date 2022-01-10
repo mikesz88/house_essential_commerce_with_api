@@ -1,8 +1,8 @@
 const displayScreens = {
-    home: true,
+    home: false,
     login: false, 
     signUp: false,
-    cart: false, 
+    cart: true, 
     shipping: false,
     payment: false,
     confirmed: false,

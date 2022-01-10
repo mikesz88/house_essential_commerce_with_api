@@ -4,8 +4,8 @@ import Navbar from '../Navbar/Navbar';
 import { commerceVariables } from '../JavaScript/InitialStateVariables';
 import Cart from "../Cart/Cart";
 import Footer from "../Footer/Footer";
-import Login from "../Login/Login";
-import SignUp from "../SignUp/SignUp";
+import Login from "../SignUp/SignUp";
+import SignUp from "../Login/Login";
 
 const INIT_CARD = commerceVariables;
 
@@ -59,6 +59,9 @@ class Commerce extends React.Component {
     updateSignUpDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {signUp: boolean}, func)
     updateHomeDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {home: boolean}, func)
     updateFooterDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {footer: boolean}, func)
+    updateCurrentUser = (state, func) => this.updateSubState('commerce','currentUser', state, func);
+    updateUserList = (state, func) => this.updateSubState('commerce','savedUsers', state, func);
+    
 
     render() {
         const { commerce } = this.state;
@@ -70,8 +73,9 @@ class Commerce extends React.Component {
                     <div className="container">
                         <Navbar 
                             cart={commerce.cart}
-                            updateCartDisplay={this.updateCartDisplay}
-                            updateHomeDisplay={this.updateHomeDisplay}
+                            displayList={commerce.displayScreens}
+                            updateDisplay={this.updateSubState}
+                            currentUser={commerce.currentUser}
                         />
                     </div>
                 </div>
@@ -81,19 +85,32 @@ class Commerce extends React.Component {
                         cart={commerce.cart}
                         deleteCartItem={this.deleteCartItem}
                         updateFooterDisplay={this.updateFooterDisplay}
+                        
                     />}
                     {cart && <Cart />}
                     {login && <Login 
                         users={commerce.savedUsers}
+                        cart={commerce.cart}
                         updateCartDisplay={this.updateCartDisplay}
                         updateLoginDisplay={this.updateLoginDisplay}
+                        updateCurrentUser={this.updateCurrentUser}
+                        updateHomeDisplay={this.updateHomeDisplay}
+                        updateUserList={this.updateUserList}
                     />}
-                    {signUp && <SignUp />}
+                    {signUp && <SignUp 
+                        updateSignUpDisplay={this.updateSignUpDisplay}
+                        users={commerce.savedUsers}
+                        cart={commerce.cart}
+                        updateCartDisplay={this.updateCartDisplay}
+                        updateHomeDisplay={this.updateHomeDisplay}
+                        updateCurrentUser={this.updateCurrentUser}
+                    />}
                     {home && footer && <Footer
                         updateCartDisplay={this.updateCartDisplay}
                         updateHomeDisplay={this.updateHomeDisplay}
                         updateLoginDisplay={this.updateLoginDisplay}
-                        updateSignUpDisplay={this.updateSignUpDisplay}
+                        updateSignUpDisplay={this.updateSignUpDisplay}                        
+                        currentUser={commerce.currentUser}
                     />}
                 </div>
             </>
