@@ -18,8 +18,8 @@ class Navbar extends React.Component {
             <div className={style.navbarContainer}>
                 <div className="btn round-pill" onClick={() => this.updateDisplay('home')}>House Essentials</div>
                 <ul className={`ul-defaults-none`}>
-                    <li><button disabled={currentUser} className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('login')}>Login</button></li>
-                    <li><button disabled={currentUser} className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('signUp')}>Create an Account</button></li>
+                    {!currentUser && <li><button className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('login')}>Login</button></li>}
+                    {!currentUser && <li><button className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('signUp')}>Create an Account</button></li>}
                     <li><button disabled={cartCount === 0 || !currentUser} className={`btn round-pill ${style.fontSize}`}  onClick={() => this.updateDisplay('cart')}><i className="fas fa-shopping-cart"></i>- {cartCount}</button></li>
                 </ul>
             </div>

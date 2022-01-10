@@ -4,8 +4,8 @@ import Navbar from '../Navbar/Navbar';
 import { commerceVariables } from '../JavaScript/InitialStateVariables';
 import Cart from "../Cart/Cart";
 import Footer from "../Footer/Footer";
-import Login from "../SignUp/SignUp";
-import SignUp from "../Login/Login";
+import Login from "../Login/Login";
+import SignUp from "../SignUp/SignUp";
 
 const INIT_CARD = commerceVariables;
 
