@@ -11,5 +11,7 @@ Do not forget to do:
 2. The quantity check for the cart must be counted for. 
 3. Transition for footer
 5. Each item should have a details page that has an Image, Title, Description, and price. 
+6. Add at the end at confirm payment to change inventory of item.
 A user can add to the cart as well as change the quantity.
     - I might leave mine how it is and add conditionals to add quantities
+

@@ -11,7 +11,9 @@ class ProductItems extends React.Component {
 
     updateCart = (state, func) => {
         this.props.updateCart(state, func);
+        this.props.updateCartItem('commerce', 'cart', this.props.product.name, {quantity: 1}, func)
         this.props.updateFooterDisplay(true)
+
     };
 
     deleteCartItem = name => this.props.deleteCartItem(name);

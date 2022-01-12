@@ -76,6 +76,7 @@ class Home extends React.Component {
                                     cart={this.props.cart}
                                     deleteCartItem={this.props.deleteCartItem}
                                     updateFooterDisplay={this.props.updateFooterDisplay}
+                                    updateCartItem={this.props.updateCartItem}
                                 />
                             )): <div className={style.loadingScreen}>Loading...</div>
                         }

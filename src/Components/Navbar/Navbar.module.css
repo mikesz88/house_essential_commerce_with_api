@@ -34,3 +34,10 @@
     text-transform: none;
     font-size: .75rem;
 }
+
+.user {
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

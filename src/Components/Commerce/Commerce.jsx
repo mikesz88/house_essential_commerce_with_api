@@ -6,6 +6,7 @@ import Cart from "../Cart/Cart";
 import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 const INIT_CARD = commerceVariables;
 
@@ -37,6 +38,21 @@ class Commerce extends React.Component {
           },
         }), func);
       }
+
+      updateCartItem = (name, sub, cartItem, state, func) => {
+        this.setState(prevState => ({
+          [name]: {
+            ...prevState[name],
+            [sub]: {
+                ...prevState[name][sub],
+                [cartItem]: {
+                    ...prevState[name][sub][cartItem],
+                    ...state
+                }
+            },
+          },
+        }), func);
+      }
     
     deleteStateVariable = (commerce, name, sub) => {
         this.setState(prevState => {
@@ -63,6 +79,7 @@ class Commerce extends React.Component {
     updateUserList = (state, func) => this.updateSubState('commerce','savedUsers', state, func);
     
 
+
     render() {
         const { commerce } = this.state;
         const { cart, confirmed, home, login, payment, shipping, signUp, footer } = commerce.displayScreens;
@@ -85,9 +102,16 @@ class Commerce extends React.Component {
                         cart={commerce.cart}
                         deleteCartItem={this.deleteCartItem}
                         updateFooterDisplay={this.updateFooterDisplay}
-                        
+                        updateCartItem={this.updateCartItem}                        
                     />}
-                    {cart && <Cart />}
+                    {(cart || payment || shipping || confirmed) && <ProgressBar 
+                        displayScreens={commerce.displayScreens}
+                    />}
+                    {cart && <Cart 
+                        cart={commerce.cart}
+                        deleteCartItem={this.deleteCartItem}
+                        updateCartItem={this.updateCartItem}
+                    />}
                     {login && <Login 
                         users={commerce.savedUsers}
                         cart={commerce.cart}

@@ -34,7 +34,8 @@ class ProductList {
                         price: data.price.raw,
                         inventory: data.inventory.available,
                         img: data.image.url,
-                        category: data.categories[0].slug
+                        category: data.categories[0].slug,
+                        quantity: 0
                     }))
                     success({ response, data })
                 } else {
