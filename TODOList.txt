@@ -1,7 +1,6 @@
-3. Create Cart
-4. Create Shipping
-5. Create Payment
-6. Confirm Payment
+1. Create Shipping
+2. Create Payment
+3. Confirm Payment
 
 Do not forget to do:
     - Do not forget about the caching of images locally. (I think I did this but I am waiting for Jason's answer)

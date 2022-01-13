@@ -7,6 +7,7 @@ import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import ProgressBar from "../ProgressBar/ProgressBar";
+import Shipping from "../Shipping/Shipping";
 
 const INIT_CARD = commerceVariables;
 
@@ -69,8 +70,10 @@ class Commerce extends React.Component {
     }
 
     updateCart = (state, func) => this.updateSubState('commerce', 'cart', state, func);
+    updateShipping = (state, func) => this.updateSubState('commerce', 'shipping', state, func);
     deleteCartItem = name => this.deleteStateVariable('commerce', 'cart', name);
     updateCartDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {cart: boolean}, func)
+    updateShippingDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {shipping: boolean}, func)
     updateLoginDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {login: boolean}, func)
     updateSignUpDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {signUp: boolean}, func)
     updateHomeDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {home: boolean}, func)
@@ -111,6 +114,18 @@ class Commerce extends React.Component {
                         cart={commerce.cart}
                         deleteCartItem={this.deleteCartItem}
                         updateCartItem={this.updateCartItem}
+                        displayScreens={commerce.displayScreens}
+                        updateHomeDisplay={this.updateHomeDisplay}
+                        updateShippingDisplay={this.updateShippingDisplay}
+                        updateCartDisplay={this.updateCartDisplay}
+                    />}
+                    {shipping && <Shipping 
+                        cart={commerce.cart}
+                        displayScreens={commerce.displayScreens}
+                        updateHomeDisplay={this.updateHomeDisplay}
+                        updateShippingDisplay={this.updateShippingDisplay}
+                        updateCartDisplay={this.updateCartDisplay}
+                        updateShipping={this.updateShipping}                        
                     />}
                     {login && <Login 
                         users={commerce.savedUsers}
@@ -133,7 +148,8 @@ class Commerce extends React.Component {
                         updateCartDisplay={this.updateCartDisplay}
                         updateHomeDisplay={this.updateHomeDisplay}
                         updateLoginDisplay={this.updateLoginDisplay}
-                        updateSignUpDisplay={this.updateSignUpDisplay}                        
+                        updateSignUpDisplay={this.updateSignUpDisplay}
+                        updateCurrentUser={this.updateCurrentUser}
                         currentUser={commerce.currentUser}
                     />}
                 </div>

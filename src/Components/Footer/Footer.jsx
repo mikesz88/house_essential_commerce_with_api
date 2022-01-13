@@ -2,9 +2,10 @@ import React from "react";
 import style from './Footer.module.css';
 
 const Footer = (props) => {
-    const { updateHomeDisplay, updateCartDisplay, updateLoginDisplay, updateSignUpDisplay, currentUser } = props;
+    const { updateHomeDisplay, updateCartDisplay, updateLoginDisplay, updateSignUpDisplay, currentUser, updateCurrentUser } = props;
 
     const goToCart = () => {
+        updateCurrentUser({firstName: 'Guest', lastName: '', email: ''})
         updateHomeDisplay(false);
         updateCartDisplay(true);
     }

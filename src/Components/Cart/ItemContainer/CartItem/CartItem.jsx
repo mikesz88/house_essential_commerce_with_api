@@ -30,7 +30,7 @@ class CartItem extends React.Component {
                 <button className={style.deleteButton} onClick={this.deleteFromCart}><i className="fas fa-times-circle"></i></button>
                 <div className={`${style.itemWidth}`}>
                     <div className={`${style.imgContainer}`}>
-                        <img src={localStorage.getItem('Armoire')} alt="product" />
+                        <img src={localStorage.getItem(name)} alt="product" />
                     </div>
                     <div>
                         <span><strong>{name}</strong></span>

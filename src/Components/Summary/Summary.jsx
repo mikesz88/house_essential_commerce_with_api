@@ -1,12 +1,12 @@
 import React from "react";
-import CartSummary from "../Cart/CartSummary/CartSummary";
+import CartSummary from "./CartSummary/CartSummary";
 import style from "./Summary.module.css"
 
 const Summary = (props) => {
 
     return (
         <div className={style.container}>
-            <CartSummary />
+            <CartSummary cart={props.cart}/>
         </div>
     )
 }
