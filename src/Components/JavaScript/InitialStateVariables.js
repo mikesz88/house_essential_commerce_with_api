@@ -3,8 +3,8 @@ const displayScreens = {
     login: false, 
     signUp: false,
     cart: false, 
-    shipping: true,
-    payment: false,
+    shipping: false,
+    payment: true,
     confirmed: false,
     footer: false,
 }
@@ -23,7 +23,9 @@ export const commerceVariables = {
     savedUsers,
     currentUser: false,
     cart: {},
-    shipping: {},
+    shipping: {
+		delivery: 'standard'
+	},
     payment: {}
 }
 

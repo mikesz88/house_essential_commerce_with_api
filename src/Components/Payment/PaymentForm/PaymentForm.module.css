@@ -1,0 +1,74 @@
+.formContainer {
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    flex: 2;
+    margin-right: 1rem;
+    background-color: #f5f5f5;
+}
+
+.flexContainer {
+    display: flex;
+}
+
+.cardNumberTransparentBorder {
+    border: none;
+    background: transparent;
+    padding: 1px 2px;
+}
+
+.cardNumberTransparentBorder:focus,
+.inputContainer input,
+.selectBackground:focus {
+    outline: none;
+}
+
+.cardNumberInputBorder {
+    padding: 1px;
+    position: relative;
+    width: 300px;
+}
+
+.inputContainer,
+.inputContainer > * {
+    margin: 1rem;
+}
+
+.inputContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.inputContainer label {
+    display: inline-block;
+    width: 150px;
+}
+
+.inputContainer input {
+    width: 300px;
+    padding: 1rem;
+    background: lightgray;
+    border: none;
+}
+
+.submitButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+    color: red;
+}
+
+.flexContainer .selectBackground {
+    background: lightgray;
+    border: none;
+    padding: 1rem;
+    width: 134px;
+}
+
+.flexContainer div .selectBackground {
+    border: none;
+}

@@ -21,6 +21,7 @@ class Cart extends React.Component {
                 />
                 <Summary 
                     cart={this.props.cart}
+                    shipping={this.props.shipping}
                     displayScreens={this.props.displayScreens}
                     updateHomeDisplay={this.updateHomeDisplay}
                     updateShippingDisplay={this.updateShippingDisplay}

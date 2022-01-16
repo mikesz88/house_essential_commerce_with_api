@@ -8,6 +8,7 @@ import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import Shipping from "../Shipping/Shipping";
+import Payment from "../Payment/payment";
 
 const INIT_CARD = commerceVariables;
 
@@ -70,9 +71,12 @@ class Commerce extends React.Component {
     }
 
     updateCart = (state, func) => this.updateSubState('commerce', 'cart', state, func);
+    updatePayment = (state, func) => this.updateSubState('commerce', 'payment', state, func);
     updateShipping = (state, func) => this.updateSubState('commerce', 'shipping', state, func);
     deleteCartItem = name => this.deleteStateVariable('commerce', 'cart', name);
     updateCartDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {cart: boolean}, func)
+    updatePaymentDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {payment: boolean}, func)
+    updateConfirmedDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {confirmed: boolean}, func)
     updateShippingDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {shipping: boolean}, func)
     updateLoginDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {login: boolean}, func)
     updateSignUpDisplay = (boolean, func) => this.updateSubState('commerce', 'displayScreens', {signUp: boolean}, func)
@@ -112,6 +116,7 @@ class Commerce extends React.Component {
                     />}
                     {cart && <Cart 
                         cart={commerce.cart}
+                        shipping={commerce.shipping}
                         deleteCartItem={this.deleteCartItem}
                         updateCartItem={this.updateCartItem}
                         displayScreens={commerce.displayScreens}
@@ -121,11 +126,25 @@ class Commerce extends React.Component {
                     />}
                     {shipping && <Shipping 
                         cart={commerce.cart}
+                        shipping={commerce.shipping}
                         displayScreens={commerce.displayScreens}
                         updateHomeDisplay={this.updateHomeDisplay}
                         updateShippingDisplay={this.updateShippingDisplay}
                         updateCartDisplay={this.updateCartDisplay}
-                        updateShipping={this.updateShipping}                        
+                        updatePaymentDisplay={this.updatePaymentDisplay}
+                        updateShipping={this.updateShipping}
+                    />}
+                    {payment && <Payment 
+                        cart={commerce.cart}
+                        shipping={commerce.shipping}
+                        displayScreens={commerce.displayScreens}
+                        updateHomeDisplay={this.updateHomeDisplay}
+                        updateShippingDisplay={this.updateShippingDisplay}
+                        updateCartDisplay={this.updateCartDisplay}
+                        updatePaymentDisplay={this.updatePaymentDisplay}
+                        updateConfirmedDisplay={this.updateConfirmedDisplay}
+                        updateCurrentUser={this.updateCurrentUser}
+                        updatePayment={this.updatePayment}
                     />}
                     {login && <Login 
                         users={commerce.savedUsers}

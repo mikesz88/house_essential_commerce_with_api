@@ -1,6 +1,4 @@
 1. Create Shipping
-- currently on the handleChange(input delivery)
-    - I want to add to commerce shipping the delivery type
     - the function to filter what to charge will be under the summary shipping component.
 2. Create Payment
 3. Confirm Payment

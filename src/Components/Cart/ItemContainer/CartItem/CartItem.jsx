@@ -38,7 +38,7 @@ class CartItem extends React.Component {
                 </div>
                 <div className={`${style.itemWidth}`}>{this.moneyDenomination(price)}</div>
                 <div className={`${style.itemWidth}`}>
-                    <select name="inventory" id="inventory" onChange={this.updateCartQuantity} value={quantity}>
+                    <select className={style.transparent} name="inventory" id="inventory" onChange={this.updateCartQuantity} value={quantity}>
                         {this.createElements(inventory)}
                     </select>
                 </div>

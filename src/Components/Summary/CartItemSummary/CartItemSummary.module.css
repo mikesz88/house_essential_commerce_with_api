@@ -1,0 +1,27 @@
+.summaryWindowSize {
+    overflow-y: auto;
+    max-height: 40vh;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.itemWidth {
+    width: 100px;
+    text-align: left;
+}
+
+.imgContainer {
+    height: 100px;
+    width: 100px;
+}
+
+.imgContainer img {
+    height: 100%;
+    width: 100%;
+}

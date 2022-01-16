@@ -17,12 +17,14 @@ class CartSummary extends React.Component {
         return total;
     }
     render() {
+        const shipping = this.props.shipping['delivery'] === 'express' ? this.totalPrice()*0.05 : this.totalPrice() >= 250 ? 0 : 50;
 
         return (
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                 <span style={{textAlign: 'center'}}>Cart Subtotal: {this.moneyDenomination((this.totalPrice()))}</span>
                 <span style={{textAlign: 'center'}}>Taxes (5.5%): {this.moneyDenomination(+(this.totalPrice()*0.055).toFixed(2))}</span>
-                <span style={{textAlign: 'center'}}>Total: {this.moneyDenomination(+(this.totalPrice()*1.055).toFixed(2))}</span>
+                <span style={{textAlign: 'center'}}>Shipping: {this.moneyDenomination(shipping)}</span>
+                <span style={{textAlign: 'center'}}>Total: {this.moneyDenomination(+(this.totalPrice()*1.055 + shipping).toFixed(2))}</span>
             </div>
         )
     }

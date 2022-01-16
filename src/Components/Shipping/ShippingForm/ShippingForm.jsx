@@ -2,6 +2,23 @@ import React, { Component } from 'react';
 import style from './ShippingForm.module.css';
 import { countryList } from '../../JavaScript/InitialStateVariables';
 
+const INIT_CARD = {
+    shippingInfo: {
+        firstName: '',
+        lastName: '',
+        street: '',
+        city: '',
+        state: '',
+        country: '',
+        zipCode: '',
+        phoneNumber: '',
+        delivery: ''
+    },
+    error: {},
+    generalError: false,
+}
+
+
 class ShippingForm extends Component {
     constructor() {
         super();
@@ -36,6 +53,51 @@ class ShippingForm extends Component {
         };
       }
 
+    proceedToPayment = () => {
+        this.props.updateShippingDisplay(false)
+        this.props.updatePaymentDisplay(true)
+    }
+
+    checkErrorBeforeSave = () => {
+        const { error } = this.state;
+        let errorValue = {};
+        let isError = false;
+        Object.keys(this.state.shippingInfo).forEach(val => {
+            if (val !== 'error') {
+                let checkError = val;
+                if (!this.state.shippingInfo[checkError].length || error[checkError]) {
+                    error[checkError]
+                    ? errorValue = { ...errorValue, [checkError]: error[checkError]}
+                    : errorValue = { ...errorValue, [checkError]: 'Required'};
+                    isError = true;
+                }
+            }
+        })
+        this.setState({ error: errorValue });
+        return isError
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const errorCheck = this.checkErrorBeforeSave();
+        console.log(errorCheck);
+        if (!errorCheck) {
+            this.props.updateShipping({shippingInfo: this.state});
+            this.setState({INIT_CARD})
+            this.proceedToPayment();
+        }
+    }
+
+    checkForPaymentButton = () => {
+        const buttonValue = Object.keys(this.state.shippingInfo).every(shippingItem => this.state.shippingInfo[shippingItem])
+        if (buttonValue) {
+            this.props.updatePayButton(false);
+        } else {
+            this.props.updatePayButton(true);
+        }
+        
+    }
+
     handleChange = ({target: {name, value}}) => {
         if (name === 'phoneNumber' & value.length < 10) {
             this.setState(prevState => ({
@@ -43,7 +105,7 @@ class ShippingForm extends Component {
                     ...prevState['shippingInfo'],
                     [name]: value,
                 }
-            }))
+            }), this.checkForPaymentButton)
         } else if (name === 'phoneNumber') {
             let cleaned = ('' + value).replace(/\D/g, '');
             let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
@@ -53,24 +115,30 @@ class ShippingForm extends Component {
                         ...prevState['shippingInfo'],
                         [name]: '(' + match[1] + ') ' + match[2] + '-' + match[3]
                     }
-                }))
+                }), this.checkForPaymentButton)
             } else {
                 this.setState(prevState => ({
                     shippingInfo: {
                         ...prevState['shippingInfo'],
                         [name]: value,
                     }
-                })) 
+                }), this.checkForPaymentButton) 
             }
         } else if (name === 'delivery') {
-            // I am here
+            this.setState(prevState => ({
+                shippingInfo: {
+                    ...prevState['shippingInfo'],
+                    [name]: value,
+                }
+            }), this.checkForPaymentButton);
+            this.props.updateShipping({ [name]: value })
         } else {
             this.setState(prevState => ({
                 shippingInfo: {
                     ...prevState['shippingInfo'],
                     [name]: value.toUpperCase(),
                 }
-            }))
+            }), this.checkForPaymentButton)
         }
     }
 
@@ -87,7 +155,7 @@ class ShippingForm extends Component {
     }
 
     zipCodeCheck = value => {
-        const zipCodeRegex = /^d{5}$/;
+        const zipCodeRegex = /^\d{5}$/;
         const error = zipCodeRegex.test(value);
         return !error ? 'Must be a 5 digit ZIP Code' : undefined;
     }
@@ -248,11 +316,9 @@ class ShippingForm extends Component {
                             className={style.inputContainer} 
                             placeholder='Zip Code' 
                             type="number" 
-                            min='1000' 
-                            max='9999' 
                             name='zipCode' 
                             id='zipCode' 
-                            value={this.state.shippingInfo.zipCode}
+                            // value={this.state.shippingInfo.zipCode}
                             onChange={this.handleChange} 
                             onBlur={this.handleBlur}
                         />

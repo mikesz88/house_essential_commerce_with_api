@@ -7,7 +7,7 @@ class Shipping extends Component {
     constructor() {
         super();
         this.state = {
-            toPaymentButton: false,
+            toPaymentButton: true,
         }
     }
 
@@ -17,16 +17,22 @@ class Shipping extends Component {
 
     render() {
         return (
-            <div>
-                <ShippingForm 
+            <div style={{display: 'flex'}}>
+                <ShippingForm
                     updatePayButton={this.updatePaymentButton}
-                />
+                    updateShipping={this.props.updateShipping}
+                    updateShippingDisplay={this.props.updateShippingDisplay}
+                    updatePaymentDisplay={this.props.updatePaymentDisplay}
+                    updateCartDisplay={this.props.updateCartDisplay}
+/>
                 <Summary 
                     cart={this.props.cart}
+                    shipping={this.props.shipping}
                     displayScreens={this.props.displayScreens}
-                    updateHomeDisplay={this.updateHomeDisplay}
-                    updateShippingDisplay={this.updateShippingDisplay}
-                    updateCartDisplay={this.updateCartDisplay}
+                    updateHomeDisplay={this.props.updateHomeDisplay}
+                    updateShippingDisplay={this.props.updateShippingDisplay}
+                    updateCartDisplay={this.props.updateCartDisplay}
+                    toPaymentButton={this.state.toPaymentButton}
                 />
             </div>
         )

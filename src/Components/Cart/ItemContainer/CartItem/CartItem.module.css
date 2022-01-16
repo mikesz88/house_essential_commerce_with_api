@@ -6,6 +6,11 @@
     margin: 1rem 0;
 }
 
+.transparent {
+    background-color: transparent;
+    border-radius: 8px;
+}
+
 .deleteButton {
     position: absolute;
     left: 0;
