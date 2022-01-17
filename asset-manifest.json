@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/house_essential_commerce_with_api/static/css/main.3918407d.css",
+    "main.js": "/house_essential_commerce_with_api/static/js/main.f5d4896d.js",
+    "static/js/787.a3733388.chunk.js": "/house_essential_commerce_with_api/static/js/787.a3733388.chunk.js",
+    "static/media/amex.png": "/house_essential_commerce_with_api/static/media/amex.ccde3bdfd214fb1dd52a.png",
+    "static/media/visa.png": "/house_essential_commerce_with_api/static/media/visa.65efbe1835b35a0510d0.png",
+    "static/media/discover.png": "/house_essential_commerce_with_api/static/media/discover.521ef0656e612926112b.png",
+    "static/media/masterCard.png": "/house_essential_commerce_with_api/static/media/masterCard.a2c9a08f323242429695.png",
+    "index.html": "/house_essential_commerce_with_api/index.html",
+    "main.3918407d.css.map": "/house_essential_commerce_with_api/static/css/main.3918407d.css.map",
+    "main.f5d4896d.js.map": "/house_essential_commerce_with_api/static/js/main.f5d4896d.js.map",
+    "787.a3733388.chunk.js.map": "/house_essential_commerce_with_api/static/js/787.a3733388.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3918407d.css",
+    "static/js/main.f5d4896d.js"
+  ]
+}
