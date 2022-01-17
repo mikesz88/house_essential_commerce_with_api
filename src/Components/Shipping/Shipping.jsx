@@ -1,41 +1,51 @@
-import React, { Component } from 'react';
-import Summary from '../Summary/Summary';
-import style from './Shipping.module.css';
-import ShippingForm from './ShippingForm/ShippingForm';
+import React, { Component } from "react";
+import Summary from "../Summary/Summary";
+import ShippingForm from "./ShippingForm/ShippingForm";
 
 class Shipping extends Component {
     constructor() {
         super();
         this.state = {
             toPaymentButton: true,
-        }
+        };
     }
 
     updatePaymentButton = (boolean) => {
-        this.setState({toPaymentButton: boolean})
-    }
+        this.setState({ toPaymentButton: boolean });
+    };
 
     render() {
+        const {
+            updateShipping,
+            updateShippingDisplay,
+            updatePaymentDisplay,
+            updateCartDisplay,
+            cart,
+            shipping,
+            displayScreens,
+            updateHomeDisplay,
+        } = this.props;
+
         return (
-            <div style={{display: 'flex'}}>
+            <div style={{ display: "flex" }}>
                 <ShippingForm
                     updatePayButton={this.updatePaymentButton}
-                    updateShipping={this.props.updateShipping}
-                    updateShippingDisplay={this.props.updateShippingDisplay}
-                    updatePaymentDisplay={this.props.updatePaymentDisplay}
-                    updateCartDisplay={this.props.updateCartDisplay}
-/>
-                <Summary 
-                    cart={this.props.cart}
-                    shipping={this.props.shipping}
-                    displayScreens={this.props.displayScreens}
-                    updateHomeDisplay={this.props.updateHomeDisplay}
-                    updateShippingDisplay={this.props.updateShippingDisplay}
-                    updateCartDisplay={this.props.updateCartDisplay}
+                    updateShipping={updateShipping}
+                    updateShippingDisplay={updateShippingDisplay}
+                    updatePaymentDisplay={updatePaymentDisplay}
+                    updateCartDisplay={updateCartDisplay}
+                />
+                <Summary
+                    cart={cart}
+                    shipping={shipping}
+                    displayScreens={displayScreens}
+                    updateHomeDisplay={updateHomeDisplay}
+                    updateShippingDisplay={updateShippingDisplay}
+                    updateCartDisplay={updateCartDisplay}
                     toPaymentButton={this.state.toPaymentButton}
                 />
             </div>
-        )
+        );
     }
 }
 

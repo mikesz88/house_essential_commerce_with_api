@@ -1,32 +1,63 @@
 import React from "react";
-import style from "./CartSummary.module.css"
 
 class CartSummary extends React.Component {
-
-    moneyDenomination = amount => amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-    
-    totalPrice = () => {
-        const { cart } = this.props;
-        const cartItemNames = Object.keys(cart);
-        let total = 0;
-        for (const product of cartItemNames) {
-            const quantity = cart[product]['quantity'];
-            const price = cart[product]['price'];
-            total += +((quantity*price).toFixed(2))
-        }
-        return total;
-    }
     render() {
-        const shipping = this.props.shipping['delivery'] === 'express' ? this.totalPrice()*0.05 : this.totalPrice() >= 250 ? 0 : 50;
+        const shipping =
+            this.props.shipping["delivery"] === "express"
+                ? this.props.totalPrice() * 0.05
+                : this.props.totalPrice() >= 250
+                ? 0
+                : 50;
 
         return (
-            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-                <span style={{textAlign: 'center'}}>Cart Subtotal: {this.moneyDenomination((this.totalPrice()))}</span>
-                <span style={{textAlign: 'center'}}>Taxes (5.5%): {this.moneyDenomination(+(this.totalPrice()*0.055).toFixed(2))}</span>
-                <span style={{textAlign: 'center'}}>Shipping: {this.moneyDenomination(shipping)}</span>
-                <span style={{textAlign: 'center'}}>Total: {this.moneyDenomination(+(this.totalPrice()*1.055 + shipping).toFixed(2))}</span>
-            </div>
-        )
+            <table style={{ margin: "0 auto" }}>
+                <tbody>
+                    <tr>
+                        <th>Cart Subtotal: </th>
+                        <td>
+                            <span>
+                                {this.props.moneyDenomination(
+                                    this.props.totalPrice()
+                                )}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Taxes (5.5%): </th>
+                        <td>
+                            <span>
+                                {this.props.moneyDenomination(
+                                    +(this.props.totalPrice() * 0.055).toFixed(
+                                        2
+                                    )
+                                )}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Shipping: </th>
+                        <td>
+                            <span>
+                                {this.props.moneyDenomination(shipping)}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Total: </th>
+                        <td>
+                            <span>
+                                {this.props.moneyDenomination(
+                                    +(
+                                        this.props.totalPrice() * 1.055 +
+                                        shipping
+                                    ).toFixed(2)
+                                )}
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        );
     }
 }
 

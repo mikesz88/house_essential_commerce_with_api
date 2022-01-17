@@ -1,39 +1,63 @@
 import React from "react";
 import Summary from "../Summary/Summary";
 import ItemContainer from "./ItemContainer/ItemContainer";
-import style from './Cart.module.css'
+import style from "./Cart.module.css";
 
 class Cart extends React.Component {
-
-    goToDisplay = e => {
+    goToDisplay = (e) => {
         e.preventDefault();
         this.props.updateCartDisplay(false);
-        e.target.value === 'home' ? this.props.updateHomeDisplay(true) : this.props.updateShippingDisplay(true);
-    }
+        e.target.value === "home"
+            ? this.props.updateHomeDisplay(true)
+            : this.props.updateShippingDisplay(true);
+    };
 
     render() {
+        const {
+            deleteCartItem,
+            updateCartItem,
+            cart,
+            shipping,
+            displayScreens,
+            updateHomeDisplay,
+            updateShippingDisplay,
+            updateCartDisplay,
+        } = this.props;
+
         return (
             <div className={style.cartContainer}>
-                <ItemContainer 
-                    deleteCartItem={this.props.deleteCartItem}
-                    cart={this.props.cart}
-                    updateCartItem={this.props.updateCartItem}
+                <ItemContainer
+                    deleteCartItem={deleteCartItem}
+                    cart={cart}
+                    updateCartItem={updateCartItem}
                 />
-                <Summary 
-                    cart={this.props.cart}
-                    shipping={this.props.shipping}
-                    displayScreens={this.props.displayScreens}
-                    updateHomeDisplay={this.updateHomeDisplay}
-                    updateShippingDisplay={this.updateShippingDisplay}
-                    updateCartDisplay={this.updateCartDisplay}
+                <Summary
+                    cart={cart}
+                    shipping={shipping}
+                    displayScreens={displayScreens}
+                    updateHomeDisplay={updateHomeDisplay}
+                    updateShippingDisplay={updateShippingDisplay}
+                    updateCartDisplay={updateCartDisplay}
                 />
-                    
-            <div className={style.buttonContainer}>
-                <button className="btn round-pill" onClick={this.goToDisplay} value='home'>Back to Home</button>
-                <button className="btn round-pill" onClick={this.goToDisplay} value='shipping'>Go to Shipping</button>
+
+                <div className={style.buttonContainer}>
+                    <button
+                        className="btn round-pill"
+                        onClick={this.goToDisplay}
+                        value="home"
+                    >
+                        Back to Home
+                    </button>
+                    <button
+                        className="btn round-pill"
+                        onClick={this.goToDisplay}
+                        value="shipping"
+                    >
+                        Go to Shipping
+                    </button>
+                </div>
             </div>
-            </div>
-        )
+        );
     }
 }
 

@@ -1,0 +1,42 @@
+.confirmContainer {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.paymentSummaryContainer {
+    width: 300px;
+    border: 1px solid black;
+    margin-left: 0.5rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.flexShippingNumbers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.paymentSummaryItemContainer {
+    overflow-y: auto;
+    max-height: 40vh;
+}
+
+.shippingInfoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.cardIcon {
+    width: 10%;
+}
+
+.paymentInfoContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

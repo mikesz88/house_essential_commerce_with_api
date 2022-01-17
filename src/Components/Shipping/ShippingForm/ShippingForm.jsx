@@ -1,200 +1,246 @@
-import React, { Component } from 'react';
-import style from './ShippingForm.module.css';
-import { countryList } from '../../JavaScript/InitialStateVariables';
+import React, { Component } from "react";
+import style from "./ShippingForm.module.css";
+import { countryList } from "../../JavaScript/InitialStateVariables";
 
 const INIT_CARD = {
     shippingInfo: {
-        firstName: '',
-        lastName: '',
-        street: '',
-        city: '',
-        state: '',
-        country: '',
-        zipCode: '',
-        phoneNumber: '',
-        delivery: ''
+        firstName: "",
+        lastName: "",
+        street: "",
+        city: "",
+        state: "",
+        country: "",
+        zipCode: "",
+        phoneNumber: "",
+        delivery: "",
     },
     error: {},
     generalError: false,
-}
-
+};
 
 class ShippingForm extends Component {
     constructor() {
         super();
         this.state = {
             shippingInfo: {
-                firstName: '',
-                lastName: '',
-                street: '',
-                city: '',
-                state: '',
-                country: '',
-                zipCode: '',
-                phoneNumber: '',
-                delivery: ''
+                firstName: "",
+                lastName: "",
+                street: "",
+                city: "",
+                state: "",
+                country: "",
+                zipCode: "",
+                phoneNumber: "",
+                delivery: "",
             },
             error: {},
             generalError: false,
-        }
+        };
     }
 
     generalError = () => {
         const errorObject = this.state.error;
         const errors = Object.keys(errorObject);
-        this.setState({ generalError: false })
-    
-        if (!errors.length) { this.setState({ generalError: true }) };
-    
+        this.setState({ generalError: false });
+
+        if (!errors.length) {
+            this.setState({ generalError: true });
+        }
+
         if (errors.length) {
-          errors.forEach(errorKey => {
-            if (errorObject[errorKey] !== undefined) { this.setState({ generalError: true }) };
-          });
-        };
-      }
+            errors.forEach((errorKey) => {
+                if (errorObject[errorKey] !== undefined) {
+                    this.setState({ generalError: true });
+                }
+            });
+        }
+    };
 
     proceedToPayment = () => {
-        this.props.updateShippingDisplay(false)
-        this.props.updatePaymentDisplay(true)
-    }
+        this.props.updateShippingDisplay(false);
+        this.props.updatePaymentDisplay(true);
+    };
 
     checkErrorBeforeSave = () => {
         const { error } = this.state;
         let errorValue = {};
         let isError = false;
-        Object.keys(this.state.shippingInfo).forEach(val => {
-            if (val !== 'error') {
+        Object.keys(this.state.shippingInfo).forEach((val) => {
+            if (val !== "error") {
                 let checkError = val;
-                if (!this.state.shippingInfo[checkError].length || error[checkError]) {
+                if (
+                    !this.state.shippingInfo[checkError].length ||
                     error[checkError]
-                    ? errorValue = { ...errorValue, [checkError]: error[checkError]}
-                    : errorValue = { ...errorValue, [checkError]: 'Required'};
+                ) {
+                    error[checkError]
+                        ? (errorValue = {
+                              ...errorValue,
+                              [checkError]: error[checkError],
+                          })
+                        : (errorValue = {
+                              ...errorValue,
+                              [checkError]: "Required",
+                          });
                     isError = true;
                 }
             }
-        })
+        });
         this.setState({ error: errorValue });
-        return isError
-    }
+        return isError;
+    };
 
-    handleSubmit = e => {
+    handleSubmit = (e) => {
         e.preventDefault();
         const errorCheck = this.checkErrorBeforeSave();
-        console.log(errorCheck);
         if (!errorCheck) {
-            this.props.updateShipping({shippingInfo: this.state});
-            this.setState({INIT_CARD})
+            this.props.updateShipping({
+                shippingInfo: this.state.shippingInfo,
+            });
+            this.setState({ INIT_CARD });
             this.proceedToPayment();
         }
-    }
+    };
 
     checkForPaymentButton = () => {
-        const buttonValue = Object.keys(this.state.shippingInfo).every(shippingItem => this.state.shippingInfo[shippingItem])
+        const buttonValue = Object.keys(this.state.shippingInfo).every(
+            (shippingItem) => this.state.shippingInfo[shippingItem]
+        );
         if (buttonValue) {
             this.props.updatePayButton(false);
         } else {
             this.props.updatePayButton(true);
         }
-        
-    }
+    };
 
-    handleChange = ({target: {name, value}}) => {
-        if (name === 'phoneNumber' & value.length < 10) {
-            this.setState(prevState => ({
-                shippingInfo: {
-                    ...prevState['shippingInfo'],
-                    [name]: value,
-                }
-            }), this.checkForPaymentButton)
-        } else if (name === 'phoneNumber') {
-            let cleaned = ('' + value).replace(/\D/g, '');
+    handleChange = ({ target: { name, value } }) => {
+        if ((name === "phoneNumber") & (value.length < 10)) {
+            this.setState(
+                (prevState) => ({
+                    shippingInfo: {
+                        ...prevState["shippingInfo"],
+                        [name]: value,
+                    },
+                }),
+                this.checkForPaymentButton
+            );
+        } else if (name === "phoneNumber") {
+            let cleaned = ("" + value).replace(/\D/g, "");
             let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
             if (match) {
-                this.setState(prevState => ({
-                    shippingInfo: {
-                        ...prevState['shippingInfo'],
-                        [name]: '(' + match[1] + ') ' + match[2] + '-' + match[3]
-                    }
-                }), this.checkForPaymentButton)
+                this.setState(
+                    (prevState) => ({
+                        shippingInfo: {
+                            ...prevState["shippingInfo"],
+                            [name]:
+                                "(" +
+                                match[1] +
+                                ") " +
+                                match[2] +
+                                "-" +
+                                match[3],
+                        },
+                    }),
+                    this.checkForPaymentButton
+                );
             } else {
-                this.setState(prevState => ({
-                    shippingInfo: {
-                        ...prevState['shippingInfo'],
-                        [name]: value,
-                    }
-                }), this.checkForPaymentButton) 
+                this.setState(
+                    (prevState) => ({
+                        shippingInfo: {
+                            ...prevState["shippingInfo"],
+                            [name]: value,
+                        },
+                    }),
+                    this.checkForPaymentButton
+                );
             }
-        } else if (name === 'delivery') {
-            this.setState(prevState => ({
-                shippingInfo: {
-                    ...prevState['shippingInfo'],
-                    [name]: value,
-                }
-            }), this.checkForPaymentButton);
-            this.props.updateShipping({ [name]: value })
+        } else if (name === "delivery") {
+            this.setState(
+                (prevState) => ({
+                    shippingInfo: {
+                        ...prevState["shippingInfo"],
+                        [name]: value,
+                    },
+                }),
+                this.checkForPaymentButton
+            );
+            this.props.updateShipping({ [name]: value });
         } else {
-            this.setState(prevState => ({
-                shippingInfo: {
-                    ...prevState['shippingInfo'],
-                    [name]: value.toUpperCase(),
-                }
-            }), this.checkForPaymentButton)
+            this.setState(
+                (prevState) => ({
+                    shippingInfo: {
+                        ...prevState["shippingInfo"],
+                        [name]: value.toUpperCase(),
+                    },
+                }),
+                this.checkForPaymentButton
+            );
         }
-    }
+    };
 
-    firstNameCheck = value => {
+    firstNameCheck = (value) => {
         const letterRegex = /^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$/gi;
         const error = letterRegex.test(value);
-        return !error ? 'Please enter a valid First Name' : undefined;
-    }
-    
-    lastNameCheck = value => {
+        return !error ? "Please enter a valid First Name" : undefined;
+    };
+
+    lastNameCheck = (value) => {
         const letterRegex = /^[A-Za-z]+((\s)?((\'|\-|\.)?([A-Za-z])+))*$/gi;
         const error = letterRegex.test(value);
-        return !error ? 'Please enter a valid Last Name' : undefined;
-    }
+        return !error ? "Please enter a valid Last Name" : undefined;
+    };
 
-    zipCodeCheck = value => {
+    zipCodeCheck = (value) => {
         const zipCodeRegex = /^\d{5}$/;
         const error = zipCodeRegex.test(value);
-        return !error ? 'Must be a 5 digit ZIP Code' : undefined;
-    }
+        return !error ? "Must be a 5 digit ZIP Code" : undefined;
+    };
 
-    phoneCheck = value => {
+    phoneCheck = (value) => {
         const phoneNumberRegex = /^\(\d{3}\)\s\d{3}-\d{4}/;
         const error = phoneNumberRegex.test(value);
-        return !error ? 'Please enter a valid Phone Number' : undefined;
-    }
+        return !error ? "Please enter a valid Phone Number" : undefined;
+    };
 
-    otherFieldCheck = value => !value ? 'Required' : undefined;
+    otherFieldCheck = (value) => (!value ? "Required" : undefined);
 
     handleValidations = (name, value) => {
         let errorText;
         switch (name) {
-            case 'firstName':
+            case "firstName":
                 errorText = this.firstNameCheck(value);
-                this.setState(prevState => ({  error: { ...prevState.error, firstName: errorText }}))
-                break;  
-            case 'lastName':
+                this.setState((prevState) => ({
+                    error: { ...prevState.error, firstName: errorText },
+                }));
+                break;
+            case "lastName":
                 errorText = this.lastNameCheck(value);
-                this.setState(prevState => ({  error: { ...prevState.error, lastName: errorText }}))
-            break;
-            case 'zipCode':
+                this.setState((prevState) => ({
+                    error: { ...prevState.error, lastName: errorText },
+                }));
+                break;
+            case "zipCode":
                 errorText = this.zipCodeCheck(value);
-                this.setState(prevState => ({  error: { ...prevState.error, zipCode: errorText }}))
-            break;
-            case 'phoneNumber':
+                this.setState((prevState) => ({
+                    error: { ...prevState.error, zipCode: errorText },
+                }));
+                break;
+            case "phoneNumber":
                 errorText = this.phoneCheck(value);
-                this.setState(prevState => ({  error: { ...prevState.error, phoneNumber: errorText }}))
-            break;
+                this.setState((prevState) => ({
+                    error: { ...prevState.error, phoneNumber: errorText },
+                }));
+                break;
             default:
                 errorText = this.otherFieldCheck(value);
-                this.setState(prevState => ({  error: { ...prevState.error, [name]: errorText }}))
-            break;
+                this.setState((prevState) => ({
+                    error: { ...prevState.error, [name]: errorText },
+                }));
+                break;
         }
-    }
+    };
 
-    handleBlur = ({target: {name, value}}) => this.handleValidations(name, value)
+    handleBlur = ({ target: { name, value } }) =>
+        this.handleValidations(name, value);
 
     render() {
         const {
@@ -207,157 +253,223 @@ class ShippingForm extends Component {
             city,
             state,
             delivery,
-          } = this.state.error;
+        } = this.state.error;
+
         const { generalError } = this.state;
 
-        const standardDelivery = <span> Standard Delivery in 5-10 business days - Free ($250 min.)</span>
-        const expressDelivery = <span>Express Delivery in 3-5 business days - 5% of Subtotal</span>
-        const deliveryDesc = <div className={style.deliveryDescription}>{standardDelivery}{expressDelivery}</div>
+        const standardDelivery = (
+            <span>
+                {" "}
+                Standard Delivery in 5-10 business days - Free ($250 min.)
+            </span>
+        );
+
+        const expressDelivery = (
+            <span>Express Delivery in 3-5 business days - 5% of Subtotal</span>
+        );
+
+        const deliveryDesc = (
+            <div className={style.deliveryDescription}>
+                {standardDelivery}
+                {expressDelivery}
+            </div>
+        );
 
         return (
             <div className={style.formContainer}>
-                <form className={style.flexForm} id='shippingForm' onSubmit={this.handleSubmit}>
-                    <div className='header-sm'>
+                <form
+                    className={style.flexForm}
+                    id="shippingForm"
+                    onSubmit={this.handleSubmit}
+                >
+                    <div className="header-sm">
                         <span>Shipping Information</span>
-                        {generalError 
-                            ? <div 
-                                id='generalError' 
-                                className={`${style.error} ${style.generalError}`}>
-                                We're sorry, but one or more fields are incomplete or incorrect. <u>Find error(s)</u>.
-                            </div> 
-                            : null}
+                        {generalError ? (
+                            <div
+                                id="generalError"
+                                className={`${style.error} ${style.generalError}`}
+                            >
+                                We're sorry, but one or more fields are
+                                incomplete or incorrect. <u>Find error(s)</u>.
+                            </div>
+                        ) : null}
                     </div>
                     <div>
-                        <input 
-                            className={style.inputContainer} 
-                            placeholder='First Name' 
-                            type="text" 
-                            name='firstName' 
-                            id='firstName'
+                        <input
+                            className={style.inputContainer}
+                            placeholder="First Name"
+                            type="text"
+                            name="firstName"
+                            id="firstName"
                             value={this.state.shippingInfo.firstName}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         />
-                        {firstName ? (<div className={style.errorMessage}>{firstName}</div>) : null}
+                        {firstName ? (
+                            <div className={style.errorMessage}>
+                                {firstName}
+                            </div>
+                        ) : null}
                     </div>
                     <div>
-                        <input 
-                            className={style.inputContainer} 
-                            placeholder='Last Name' 
-                            type="text" 
-                            name='lastName' 
-                            id='lastName' 
+                        <input
+                            className={style.inputContainer}
+                            placeholder="Last Name"
+                            type="text"
+                            name="lastName"
+                            id="lastName"
                             value={this.state.shippingInfo.lastName}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         />
-                        {lastName ? (<div className={style.errorMessage}>{lastName}</div>) : null}
+                        {lastName ? (
+                            <div className={style.errorMessage}>{lastName}</div>
+                        ) : null}
                     </div>
                     <div>
-                        <input 
-                            className={style.inputContainer} 
-                            placeholder='Street Address' 
-                            type="text" 
-                            name='street' 
-                            id='street'
+                        <input
+                            className={style.inputContainer}
+                            placeholder="Street Address"
+                            type="text"
+                            name="street"
+                            id="street"
                             value={this.state.shippingInfo.street}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         />
-                        {street ? (<div className={style.errorMessage}>{street}</div>) : null}
+                        {street ? (
+                            <div className={style.errorMessage}>{street}</div>
+                        ) : null}
                     </div>
                     <div>
-                        <input 
-                            className={style.inputContainer} 
-                            placeholder='City/Town' 
-                            type="text" 
-                            name='city' 
-                            id='city' 
+                        <input
+                            className={style.inputContainer}
+                            placeholder="City/Town"
+                            type="text"
+                            name="city"
+                            id="city"
                             value={this.state.shippingInfo.city}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         />
-                        {city ? (<div className={style.errorMessage}>{city}</div>) : null}
+                        {city ? (
+                            <div className={style.errorMessage}>{city}</div>
+                        ) : null}
                     </div>
                     <div>
-                        <input 
-                            className={style.inputContainer} 
-                            placeholder='State/Province' 
-                            type="text" 
-                            name='state' 
-                            id='state' 
+                        <input
+                            className={style.inputContainer}
+                            placeholder="State/Province"
+                            type="text"
+                            name="state"
+                            id="state"
                             value={this.state.shippingInfo.state}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         />
-                        {state ? (<div className={style.errorMessage}>{state}</div>) : null}
+                        {state ? (
+                            <div className={style.errorMessage}>{state}</div>
+                        ) : null}
                     </div>
                     <div>
-                        <select 
-                            className={style.inputContainer} 
-                            name="country" 
-                            id="country" 
+                        <select
+                            className={style.inputContainer}
+                            name="country"
+                            id="country"
                             value={this.state.shippingInfo.country}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         >
                             {countryList.map((country, index) => {
-                                if (country === 'Country') {
-                                    return <option key={index} disabled value=''>Country</option>
+                                if (country === "Country") {
+                                    return (
+                                        <option key={index} disabled value="">
+                                            Country
+                                        </option>
+                                    );
                                 } else {
-                                    return <option key={index} value={country}>{country}</option>
+                                    return (
+                                        <option key={index} value={country}>
+                                            {country}
+                                        </option>
+                                    );
                                 }
                             })}
                         </select>
-                        {country ? (<div className={style.errorMessage}>{country}</div>) : null}
+                        {country ? (
+                            <div className={style.errorMessage}>{country}</div>
+                        ) : null}
                     </div>
                     <div>
-                        <input 
-                            className={style.inputContainer} 
-                            placeholder='Zip Code' 
-                            type="number" 
-                            name='zipCode' 
-                            id='zipCode' 
+                        <input
+                            className={style.inputContainer}
+                            placeholder="Zip Code"
+                            type="number"
+                            name="zipCode"
+                            id="zipCode"
                             // value={this.state.shippingInfo.zipCode}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         />
-                        {zipCode ? (<div className={style.errorMessage}>{zipCode}</div>) : null}
+                        {zipCode ? (
+                            <div className={style.errorMessage}>{zipCode}</div>
+                        ) : null}
                     </div>
                     <div>
-                        <input 
-                            className={style.inputContainer} 
-                            placeholder='Phone Number' 
-                            type="tel" 
-                            maxLength='14'
-                            name='phoneNumber' 
-                            id='phoneNumber' 
+                        <input
+                            className={style.inputContainer}
+                            placeholder="Phone Number"
+                            type="tel"
+                            maxLength="14"
+                            name="phoneNumber"
+                            id="phoneNumber"
                             value={this.state.shippingInfo.phoneNumber}
-                            onChange={this.handleChange} 
+                            onChange={this.handleChange}
                             onBlur={this.handleBlur}
                         />
-                        {phoneNumber ? (<div className={style.errorMessage}>{phoneNumber}</div>) : null}
+                        {phoneNumber ? (
+                            <div className={style.errorMessage}>
+                                {phoneNumber}
+                            </div>
+                        ) : null}
                     </div>
-                    <div >
+                    <div>
                         <div className={style.deliveryContainer}>
                             <div>
-                                <input type="radio" name="delivery" id="delivery" value='standard' onBlur={this.handleBlur} onChange={this.handleChange}/>
+                                <input
+                                    type="radio"
+                                    name="delivery"
+                                    id="delivery"
+                                    value="standard"
+                                    onBlur={this.handleBlur}
+                                    onChange={this.handleChange}
+                                />
                                 <label>Standard</label>
                             </div>
                             <div>
-                                <input type="radio" name="delivery" id="delivery" value='express' onBlur={this.handleBlur} onChange={this.handleChange}/>
+                                <input
+                                    type="radio"
+                                    name="delivery"
+                                    id="delivery"
+                                    value="express"
+                                    onBlur={this.handleBlur}
+                                    onChange={this.handleChange}
+                                />
                                 <label>Express</label>
                             </div>
                         </div>
                         <div>
                             {deliveryDesc}
-                            {delivery ? (<div className={style.errorMessage}>{delivery}</div>) : null}
+                            {delivery ? (
+                                <div className={style.errorMessage}>
+                                    {delivery}
+                                </div>
+                            ) : null}
                         </div>
-
                     </div>
                 </form>
             </div>
-        )
+        );
     }
 }
 

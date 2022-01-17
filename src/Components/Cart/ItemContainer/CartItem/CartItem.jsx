@@ -1,50 +1,77 @@
 import React from "react";
-import style from './CartItem.module.css'
+import style from "./CartItem.module.css";
 
 class CartItem extends React.Component {
-    
-    updateCartQuantity = (e,func) => {
+    updateCartQuantity = (e, func) => {
         e.preventDefault();
-        this.props.updateCartItem('commerce', 'cart', this.props.product.name, {quantity: +e.target.value}, func)
-    }
+        this.props.updateCartItem(
+            "commerce",
+            "cart",
+            this.props.product.name,
+            { quantity: +e.target.value },
+            func
+        );
+    };
 
-    moneyDenomination = amount => amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+    moneyDenomination = (amount) =>
+        amount.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
     deleteFromCart = () => {
         this.props.deleteCartItem(this.props.product.name);
-    }
+    };
 
-    createElements = n => {
+    createElements = (n) => {
         let numberArray = [];
-        for(let i = 0; i <= n; i++){
-            numberArray.push(<option key={i} value={i}>{i}</option>);
+        for (let i = 0; i <= n; i++) {
+            numberArray.push(
+                <option key={i} value={i}>
+                    {i}
+                </option>
+            );
         }
         return numberArray;
-    }
+    };
 
     render() {
         const { name, price, inventory, quantity } = this.props.product;
 
         return (
             <div className={style.cartFlex}>
-                <button className={style.deleteButton} onClick={this.deleteFromCart}><i className="fas fa-times-circle"></i></button>
+                <button
+                    className={style.deleteButton}
+                    onClick={this.deleteFromCart}
+                >
+                    <i className="fas fa-times-circle"></i>
+                </button>
                 <div className={`${style.itemWidth}`}>
                     <div className={`${style.imgContainer}`}>
                         <img src={localStorage.getItem(name)} alt="product" />
                     </div>
                     <div>
-                        <span><strong>{name}</strong></span>
+                        <span>
+                            <strong>{name}</strong>
+                        </span>
                     </div>
                 </div>
-                <div className={`${style.itemWidth}`}>{this.moneyDenomination(price)}</div>
                 <div className={`${style.itemWidth}`}>
-                    <select className={style.transparent} name="inventory" id="inventory" onChange={this.updateCartQuantity} value={quantity}>
+                    {this.moneyDenomination(price)}
+                </div>
+                <div className={`${style.itemWidth}`}>
+                    <select
+                        className={style.transparent}
+                        name="inventory"
+                        id="inventory"
+                        onChange={this.updateCartQuantity}
+                        value={quantity}
+                    >
                         {this.createElements(inventory)}
                     </select>
                 </div>
-                <div className={`${style.itemWidth}`}>{this.moneyDenomination(quantity * price)}</div>
+                <div className={`${style.itemWidth}`}>
+                    {this.moneyDenomination(quantity * price)}
+                </div>
             </div>
-        )
+        );
     }
 }
 

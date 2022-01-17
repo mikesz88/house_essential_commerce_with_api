@@ -1,10 +1,10 @@
 const displayScreens = {
-    home: false,
+    home: true,
     login: false, 
     signUp: false,
     cart: false, 
     shipping: false,
-    payment: true,
+    payment: false,
     confirmed: false,
     footer: false,
 }
